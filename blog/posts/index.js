@@ -11,7 +11,11 @@ const posts = {};
 const app = express() ;
 
 // app.use(cors())
-
+app.use(cors(
+  {
+    origin: 'http://localhost:3000'
+  }
+))
 app.use(bodyParser.json());
 app.post('/posts' , (req , res , next)=>{
   const id = randomBytes(4).toString('hex'); // generate a random id and convert it to hex format
