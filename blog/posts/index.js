@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const posts = {}; 
 const app = express() ;
 
+const axios = require('axios'); 
 // app.use(cors())
 app.use(cors(
   {
@@ -17,12 +18,16 @@ app.use(cors(
   }
 ))
 app.use(bodyParser.json());
-app.post('/posts' , (req , res , next)=>{
+app.post('/posts' ,async (req , res , next)=>{
   const id = randomBytes(4).toString('hex'); // generate a random id and convert it to hex format
   const {title} = req.body;
   posts[id]={
     id,title
   };
+   await axios.post('http://localhost:4005/events' , {
+    type : 'PostCreated' , 
+    data:posts[id]
+   }).catch(console.log); 
   res.status(201).send(posts[id]);
  
 });  
@@ -31,7 +36,10 @@ app.get('/posts' , (req, res , next)=>{
   res.send(posts);
 
 });
-
+app.post('/events' , (req , res ,next)=>{
+  console.log("Received Event" , req.body.type); 
+  res.send({});
+})
 app.listen(4000 , ()=>{
   console.log("Listening on port 4000");
 })
