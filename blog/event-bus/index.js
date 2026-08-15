@@ -20,6 +20,8 @@ app.post('/events' ,async (req, res , next)=>{
     await axios.post('http://localhost:4000/events' ,event);  // for Posts
     await axios.post('http://localhost:4001/events' ,event);  // for comments
     await axios.post('http://localhost:4002/events' ,event);  // for query
+    await axios.post('http://localhost:4003/events' ,event);  // for moderation
+
     res.send({
       status: 'Ok'
     });
