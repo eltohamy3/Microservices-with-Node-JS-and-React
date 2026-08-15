@@ -39,11 +39,12 @@ app.post('/events' , (req ,res , next)=>{
       }
     }
     res.send("Ok"); 
-})
+});
 app.listen(4002 , ()=>{
   console.log("listening on port 4002.")
   
-})
+});
+
 
 
 
