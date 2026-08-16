@@ -13,9 +13,11 @@ app.use(bodyParser.json());
 
 app.use(cors())
 
+const events = [] ;
 app.post('/events' ,async (req, res , next)=>{
 
   const event = req.body ;
+  events.push(event); 
   try{
     await axios.post('http://localhost:4000/events' ,event);  // for Posts
     await axios.post('http://localhost:4001/events' ,event);  // for comments
@@ -37,7 +39,9 @@ app.post('/events' ,async (req, res , next)=>{
 
 
 })
-
+app.get('/events' , (req,res,next)=>{
+  res.send(events);
+})
 app.listen(4005 , ()=>{
   console.log("Listening on port 4005")
 })
