@@ -1,21 +1,16 @@
-# get the base image
 FROM node:20-alpine
+
+WORKDIR /usr/app
 
 ENV CI=true
 ENV WDS_SOCKET_PORT=0
-# Change the workdir 
-WORKDIR /usr/app
-# install some dependencies
+ENV BROWSER=none
 
-
-# copy the package.json and install others
 COPY package.json .
-RUN npm install 
+RUN npm install
 
-# copy the rest of files
 COPY . .
 
-
 EXPOSE 3000
-# start up command
-CMD [ "npm" , "start" ]
+
+CMD ["npm", "start"]
