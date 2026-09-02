@@ -18,7 +18,7 @@ app.use(cors(
   }
 ))
 app.use(bodyParser.json());
-app.post('/posts' ,async (req , res , next)=>{
+app.post('/posts/create' ,async (req , res , next)=>{
   const id = randomBytes(4).toString('hex'); // generate a random id and convert it to hex format
   const {title} = req.body;
   posts[id]={

@@ -1,6 +1,8 @@
 # get the base image
 FROM node:20-alpine
 
+ENV CI=true
+ENV WDS_SOCKET_PORT=0
 # Change the workdir 
 WORKDIR /usr/app
 # install some dependencies
