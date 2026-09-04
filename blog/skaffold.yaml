@@ -1,0 +1,68 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+
+deploy:
+  kubectl: {}
+
+manifests:
+  rawYaml:
+    - infra/k8s/*
+metadata:
+  name: blog
+build:
+  local:
+    push: false
+  artifacts:
+    - image: eltooeltoo/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.js"
+          - dest: .
+            src: "src/**/*.css"
+    - image: eltooeltoo/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '*.js'
+
+    - image: eltooeltoo/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '*.js'
+
+    - image: eltooeltoo/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '*.js'
+
+    - image: eltooeltoo/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '*.js'
+    - image: eltooeltoo/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '*.js'
